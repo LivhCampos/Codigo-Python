@@ -1,0 +1,34 @@
+
+import os
+import shutil
+
+def mover_arquivos(origens, destino):
+    if not os.path.exists(destino):
+        os.makedirs(destino)
+        print(f"Criada a pasta de destino '{destino}'.")
+
+    for origem in origens:
+        if not os.path.exists(origem):
+            print(f"A pasta de origem '{origem}' não existe.")
+            continue
+
+        arquivos = os.listdir(origem)
+
+        for arquivo in arquivos:
+            origem_arquivo = os.path.join(origem, arquivo)
+            destino_arquivo = os.path.join(destino, arquivo)
+            try:
+                shutil.copyfile(origem_arquivo, destino_arquivo)
+                print(f"Arquivo '{arquivo}' copiado de '{origem}' para '{destino}'.")
+            except Exception as e:
+                print(f"Erro ao copiar o arquivo '{arquivo}': {str(e)}")
+
+diretorios_origem = [
+    r'\\BRSAOWVPBIGW01\Report',
+    r'\\BRSAOWVPBIGW02\Report',
+    r'\\BRSAOWVPBIGW03\Report'
+]
+diretorio_destino = r'\\AZRWCAP02QA\Report\Report'
+
+
+mover_arquivos(diretorios_origem, diretorio_destino)
